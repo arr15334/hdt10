@@ -17,15 +17,9 @@ import org.graphstream.algorithm.generator.DorogovtsevMendesGenerator;
 import org.graphstream.graph.Node;
 
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
- * @author Diego
+ * @author Rodrigo Arriaza
  */
 
 public class GraphDB {
@@ -36,35 +30,37 @@ public class GraphDB {
     ArrayList<String> rankings = new ArrayList();
     ArrayList<Persona> losrankings = new ArrayList();
     
+    /**
+     * pre: Graph is empty
+     * post: Graph is created after reading csv File
+     */
     public void createGraph()
     {
-        String csvFile = "/Users/Diego/Documents/NetBeansProjects/neo4jprueba/datos.csv";
+        String csvFile = "/Users/Diego/Documents/NetBeansProjects/neo4jprueba/datos.csv"; //cambiar esto con la location del archivo datos.csv
         BufferedReader br = null;
         String line ="";
-        //String[][] adjmatrix = new String[15][15];
         
         int n = 0;
         try {
             br = new BufferedReader(new FileReader(csvFile));
             while ((line = br.readLine()) != null) {
-                // use comma as separator
-                String[] country = line.split(";");
+                // use punto coma as separator
+                String[] fila = line.split(";");
                 
-                adjmatrix[0][n]=country[1];
-//                correos[0][i]=Integer.parseInt(country[1]);
-                adjmatrix[1][n]=country[2];
-                adjmatrix[2][n]=country[3];
-                adjmatrix[3][n]=country[4];
-                adjmatrix[4][n]=country[5];
-                adjmatrix[5][n]=country[6];
-                adjmatrix[6][n]=country[7];
-                adjmatrix[7][n]=country[8];
-                adjmatrix[8][n]=country[9];
-                adjmatrix[9][n]=country[10];
-                adjmatrix[10][n]=country[11];
-                adjmatrix[11][n]=country[12];
-                adjmatrix[12][n]=country[13];
-                adjmatrix[13][n]=country[14];
+                adjmatrix[0][n]=fila[1];
+                adjmatrix[1][n]=fila[2];
+                adjmatrix[2][n]=fila[3];
+                adjmatrix[3][n]=fila[4];
+                adjmatrix[4][n]=fila[5];
+                adjmatrix[5][n]=fila[6];
+                adjmatrix[6][n]=fila[7];
+                adjmatrix[7][n]=fila[8];
+                adjmatrix[8][n]=fila[9];
+                adjmatrix[9][n]=fila[10];
+                adjmatrix[10][n]=fila[11];
+                adjmatrix[11][n]=fila[12];
+                adjmatrix[12][n]=fila[13];
+                adjmatrix[13][n]=fila[14];
                 n++;
                 }
         } catch (FileNotFoundException e) {
@@ -81,10 +77,11 @@ public class GraphDB {
             }
         }
         try {
-                    Connection con = DriverManager.getConnection("jdbc:neo4j:bolt://localhost/?user=neo4j,password=123,debug=true,noSsl,flatten=[-1,100,1000]");
+            //la siguiente linea se debe modificar con el user y el password de neo4j
+                    Connection con = DriverManager.getConnection("jdbc:neo4j:bolt://localhost/?user=neo4j,password=123,debug=true,noSsl,flatten=[-1,100,1000]"); 
                     try (Statement stmt = con.createStatement()) {
                 stmt.executeQuery("match (n) detach \n delete n");
-                
+                /*
                 ResultSet rs = stmt.executeQuery(   "create (Per1:Person {name:\"Per 1\"})\n" +
                                                     "create (Per2:Person {name:\"Per 2\"})\n" +
                                                     "create (Per3:Person {name:\"Per 3\"})\n" +
@@ -242,10 +239,11 @@ public class GraphDB {
                         "CREATE (m)-[:WROTE {quantity: 6}]->(o)\n" +
                         "CREATE (m)-[:WROTE {quantity: 8}]->(p)\n" +
                         "CREATE (m)-[:WROTE {quantity: 3}]->(q)");
-                
+                */
                 for (int m = 0; m<14 ; m++){
                 grafito.addNode(adjmatrix[m][0]);
-                //stmt.executeQuery("CREATE (n:Person {name: \"adjmatrix[m][0]\"})");
+                String query = String.format("\"%s\"", adjmatrix[m][0]);
+                stmt.executeQuery("CREATE (n:Person {name: "+query+"})");
                 // "create (Per1:Person {name:\"Per 1\"})\n"
                         }
                 
@@ -261,11 +259,14 @@ public class GraphDB {
                 if (correos[i][j]>0){
           //        Node nodo1 = grafito.getNode(adjmatrix[j][0]);  
             //      Node nodo2 = grafito.getNode(adjmatrix[i][0]);
-                  //  stmt.executeQuery("match (n: Person {name: \"adjmatrix[j][0]\"})"
-                    //                  +"create (n)-[:WROTE {quantity: "+correos[i][j]+"}]->(m)");
+                    String nombreq1 = String.format("\"%s\"", adjmatrix[j][0]);
+                    String nombreq2 = String.format("\"%s\"", adjmatrix[i][0]);
+                  stmt.executeQuery("match (n: Person {name: "+nombreq1+"})" +
+                                    "match (m: Person {name: "+nombreq2+"})" +
+                                      "create (n)-[:WROTE {quantity: "+correos[i][j]+"}]->(m)");
                   grafito.addEdge(""+adjmatrix[j][0]+adjmatrix[i][0], adjmatrix[j][0], adjmatrix[i][0], true);
                   
-                if (correos[i][j]>5)
+                if (correos[i][j]>6)
                 {
                     if (grafo6.getNode(adjmatrix[i][0])==null){
                     grafo6.addNode(adjmatrix[i][0]);
@@ -297,13 +298,25 @@ public class GraphDB {
             
             }
     
+    /**
+     *
+     */
     public void mostrarGrafo (){
         grafito.display();
     }
+
+    /**
+     *
+     */
     public void mostrarGrafo6(){
         grafo6.display();
     }
+
+    /**
+     *
+     */
     public void pagerank() {
+     losrankings.clear();
         /*
         DorogovtsevMendesGenerator generator = new DorogovtsevMendesGenerator();
 	generator.setDirectedEdges(true, true);
@@ -312,8 +325,6 @@ public class GraphDB {
         PageRank pageRank = new PageRank();
         pageRank.setVerbose(true);
 	pageRank.init(grafito);
-        
-        
         
         for (Node node : grafito){
             double rank = pageRank.getRank(node);
@@ -326,19 +337,12 @@ public class GraphDB {
         rankings.sort(null);
         losrankings.sort(null);
         
-        /*
-        generator.begin();
-			while (grafito.getNodeCount() < 30) {
-				generator.nextEvents();
-				for (Node node : grafito) {
-					double rank = pageRank.getRank(node);
-					node.addAttribute("ui.size", 5 + Math.sqrt(grafito.getNodeCount() * rank * 20));
-					node.addAttribute("ui.label", String.format("%.2f%%", rank * 100));
-				}
-				Thread.sleep(500);
-			}
-        */
     }
+
+    /**
+     *
+     * @return
+     */
     public String getRankings ()
     {
         String o = "";
@@ -350,6 +354,10 @@ public class GraphDB {
         return o;
     }
     
+    /**
+     *
+     * @return
+     */
     public String masComunicados (){
         String s = "";
         ArrayList<Persona> comunicaciones = new ArrayList();
@@ -362,6 +370,10 @@ public class GraphDB {
         return s;
     }
     
+    /**
+     *
+     * @return
+     */
     public String menosComunicados (){
         String s = "";
         ArrayList<Persona> comunicaciones = new ArrayList();
@@ -372,5 +384,38 @@ public class GraphDB {
         comunicaciones.sort(null);
         s = comunicaciones.get(0).getName()+"\n "+comunicaciones.get(1).getName()+"\n "+comunicaciones.get(2).getName()+" ";
         return s;
+    }
+
+    /**
+     *
+     * @param origen
+     * @param destino
+     * @return
+     */
+    public String correos(String origen, String destino){
+        String res = "";
+        try {
+                    Connection con = DriverManager.getConnection("jdbc:neo4j:bolt://localhost/?user=neo4j,password=123,debug=true,noSsl,flatten=[-1,100,1000]");
+                    try (Statement stmt = con.createStatement()) {
+        
+        String queryo = String.format("\"%s\"",origen);
+        String queryd = String.format("\"%s\"",destino);
+        ResultSet rs = stmt.executeQuery("match (l {name: "+queryo+"})\n"+
+                                         "match (m {name: "+queryd+"})\n"+
+                                         "match path = shortestPath( (l)-[:WROTE*..3]-(m) ) \n"+
+                                         "UNWIND nodes(path) as n\n" +
+                                         "RETURN reduce(quantity=0, r in relationships(path) | quantity+r.quantity) AS totalWeight"); 
+                                            //"RETURN n.name;");
+        if (rs.next()){
+            int minimoCorreos = rs.getInt("totalWeight");
+            res ="Cantidad de correos de "+origen+" a "+destino+" es: "+minimoCorreos;
+        
+        } else {    res = "No hay correos entre "+origen + " y "+destino;
+        } 
+                    }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return res;
     }
 }
