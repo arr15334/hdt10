@@ -18,8 +18,11 @@ import org.graphstream.graph.Node;
 
 
 /**
- *
- * @author Rodrigo Arriaza
+ * Universidad del Valle de Guatemala
+ * Algoritmos y Estructuras de Datos
+ * Hoja de Trabajo #10
+ * 
+ * @author Rodrigo Arriaza, Alejandro Chaclán, Sebastián Galindo
  */
 
 public class GraphDB {
@@ -36,7 +39,10 @@ public class GraphDB {
      */
     public void createGraph()
     {
-        String csvFile = "/Users/Diego/Documents/NetBeansProjects/neo4jprueba/datos.csv"; //cambiar esto con la location del archivo datos.csv
+        /*
+        * Aqui se especifica la dorección en la que el documento .csv se encuentra
+        */
+        String csvFile = "/Users/Sebastián/Documents/UVG/2016/Segundo Ciclo/Algoritmos y Estructuras de Datos/HDT 10/hdt10-master/datos.csv"; //cambiar esto con la location del archivo datos.csv
         BufferedReader br = null;
         String line ="";
         
@@ -77,169 +83,13 @@ public class GraphDB {
             }
         }
         try {
-            //la siguiente linea se debe modificar con el user y el password de neo4j
-                    Connection con = DriverManager.getConnection("jdbc:neo4j:bolt://localhost/?user=neo4j,password=123,debug=true,noSsl,flatten=[-1,100,1000]"); 
+            /*
+            * la siguiente linea se debe modificar con el user y el password de neo4j
+            */
+                    Connection con = DriverManager.getConnection("jdbc:neo4j:bolt://localhost/?user=neo4j,password=neo4jhdt10,debug=true,noSsl,flatten=[-1,100,1000]"); 
                     try (Statement stmt = con.createStatement()) {
                 stmt.executeQuery("match (n) detach \n delete n");
-                /*
-                ResultSet rs = stmt.executeQuery(   "create (Per1:Person {name:\"Per 1\"})\n" +
-                                                    "create (Per2:Person {name:\"Per 2\"})\n" +
-                                                    "create (Per3:Person {name:\"Per 3\"})\n" +
-                                                    "create (Per4:Person {name:\"Per 4\"})\n" +
-                                                    "create (Per5:Person {name:\"Per 5\"})\n" +
-                                                    "create (Per6:Person {name:\"Per 6\"})\n" +
-                                                    "create (Per7:Person {name:\"Per 7\"})\n" +
-                                                    "create (Per8:Person {name:\"Per 8\"})\n" +
-                                                    "create (Per9:Person {name:\"Per 9\"})\n" +
-                                                    "create (Per10:Person {name:\"Per 10\"})\n" +
-                                                    "create (Per11:Person {name:\"Per 11\"})\n" +
-                                                    "create (Per12:Person {name:\"Per 12\"})\n" +
-                                                    "create (Per13:Person {name:\"Per 13\"})\n" +
-                                                    "create (Per14:Person {name:\"Per 14\"})");
-                stmt.executeQuery( "match (m:Person {name: \"Per 1\"})\n" +
-                                    "match (n:Person {name: \"Per 2\"})\n" +
-                                    "match (o:Person {name: \"Per 3\"})\n" +
-                                    "match (p:Person {name: \"Per 9\"})\n" +
-                                    "match (q:Person {name: \"Per 14\"})\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 3}]->(n)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 2}]->(o)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 6}]->(p)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 1}]->(q)" );
-                stmt.executeQuery("match (m:Person {name: \"Per 2\"})\n" +
-                                    "match (n:Person {name: \"Per 1\"})\n" +
-                                    "match (o:Person {name: \"Per 3\"})\n" +
-                                    "match (p:Person {name: \"Per 4\"})\n" +
-                                    "match (q:Person {name: \"Per 12\"})\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 5}]->(n)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 8}]->(o)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 2}]->(p)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 1}]->(q)");
-                stmt.executeQuery("match (m:Person {name: \"Per 3\"})\n" +
-                                    "match (n:Person {name: \"Per 1\"})\n" +
-                                    "match (o:Person {name: \"Per 4\"})\n" +
-                                    "\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 5}]->(n)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 2}]->(o)");
-                stmt.executeQuery("match (m:Person {name: \"Per 4\"})\n" +
-                                    "match (n:Person {name: \"Per 5\"})\n" +
-                                    "match (o:Person {name: \"Per 6\"})\n" +
-                                    "match (p:Person {name: \"Per 11\"})\n" +
-                                    "match (q:Person {name: \"Per 13\"})\n" +
-                                    "match (r:Person {name: \"Per 14\"})\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 5}]->(n)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 7}]->(o)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 2}]->(p)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 3}]->(q)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 7}]->(r)");
-                stmt.executeQuery("match (m:Person {name: \"Per 5\"})\n" +
-                                    "match (n:Person {name: \"Per 4\"})\n" +
-                                    "match (o:Person {name: \"Per 6\"})\n" +
-                                    "match (p:Person {name: \"Per 11\"})\n" +
-                                    "match (q:Person {name: \"Per 12\"})\n" +
-                                    "match (r:Person {name: \"Per 13\"})\n" +
-                                    "match (s:Person {name: \"Per 14\"})\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 2}]->(n)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 6}]->(o)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 4}]->(p)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 3}]->(q)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 7}]->(r)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 9}]->(s)");
-                stmt.executeQuery("match (m:Person {name: \"Per 6\"})\n" +
-                                    "match (n:Person {name: \"Per 4\"})\n" +
-                                    "match (o:Person {name: \"Per 5\"})\n" +
-                                    "match (p:Person {name: \"Per 12\"})\n" +
-                                    "match (q:Person {name: \"Per 13\"})\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 6}]->(n)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 2}]->(o)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 7}]->(p)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 7}]->(q)");
-                stmt.executeQuery("match (m:Person {name: \"Per 7\"})\n" +
-                                    "match (n:Person {name: \"Per 8\"})\n" +
-                                    "match (o:Person {name: \"Per 9\"})\n" +
-                                    "match (p:Person {name: \"Per 11\"})\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 12}]->(n)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 13}]->(o)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 1}]->(p)");
-                stmt.executeQuery("match (m:Person {name: \"Per 8\"})\n" +
-                                    "match (n:Person {name: \"Per 6\"})\n" +
-                                    "match (o:Person {name: \"Per 7\"})\n" +
-                                    "match (p:Person {name: \"Per 9\"})\n" +
-                                    "match (q:Person {name: \"Per 10\"})\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 3}]->(n)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 14}]->(o)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 21}]->(p)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 2}]->(q)");
-                stmt.executeQuery("match (m:Person {name: \"Per 9\"})\n" +
-                                        "match (n:Person {name: \"Per 5\"})\n" +
-                                        "match (o:Person {name: \"Per 7\"})\n" +
-                                        "match (p:Person {name: \"Per 8\"})\n" +
-                                        "CREATE (m)-[:WROTE {quantity: 4}]->(n)\n" +
-                                        "CREATE (m)-[:WROTE {quantity: 12}]->(o)\n" +
-                                        "CREATE (m)-[:WROTE {quantity: 23}]->(p)");
-                stmt.executeQuery("match (m:Person {name: \"Per 10\"})\n" +
-                                    "match (o:Person {name: \"Per 4\"})\n" +
-                                    "match (p:Person {name: \"Per 5\"})\n" +
-                                    "match (q:Person {name: \"Per 6\"})\n" +
-                                    "match (r:Person {name: \"Per 7\"})\n" +
-                                    "match (s:Person {name: \"Per 11\"})\n" +
-                                    "match (t:Person {name: \"Per 12\"})\n" +
-                                    "match (u:Person {name: \"Per 13\"})\n" +
-                                    "match (v:Person {name: \"Per 14\"})\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 9}]->(o)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 7}]->(p)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 1}]->(q)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 1}]->(r)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 5}]->(s)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 4}]->(t)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 8}]->(u)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 7}]->(v)");
-                stmt.executeQuery("match (m:Person {name: \"Per 11\"})\n" +
-                                    "match (n:Person {name: \"Per 4\"})\n" +
-                                    "match (o:Person {name: \"Per 6\"})\n" +
-                                    "match (p:Person {name: \"Per 10\"})\n" +
-                                    "match (q:Person {name: \"Per 13\"})\n" +
-                                    "match (r:Person {name: \"Per 14\"})\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 4}]->(n)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 1}]->(o)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 1}]->(p)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 9}]->(q)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 1}]->(r)");
-                stmt.executeQuery("match (m:Person {name: \"Per 12\"})\n" +
-                                    "match (n:Person {name: \"Per 4\"})\n" +
-                                    "match (o:Person {name: \"Per 5\"})\n" +
-                                    "match (p:Person {name: \"Per 6\"})\n" +
-                                    "match (q:Person {name: \"Per 10\"})\n" +
-                                    "match (r:Person {name: \"Per 11\"})\n" +
-                                    "match (s:Person {name: \"Per 13\"})\n" +
-                                    "match (t:Person {name: \"Per 14\"})\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 4}]->(n)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 4}]->(o)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 9}]->(p)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 2}]->(q)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 4}]->(r)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 8}]->(s)\n" +
-                                    "CREATE (m)-[:WROTE {quantity: 9}]->(t)");
-                stmt.executeQuery("match (m:Person {name: \"Per 13\"})\n" +
-                            "match (n:Person {name: \"Per 4\"})\n" +
-                            "match (o:Person {name: \"Per 5\"})\n" +
-                            "match (p:Person {name: \"Per 10\"})\n" +
-                            "match (q:Person {name: \"Per 11\"})\n" +
-                            "match (r:Person {name: \"Per 12\"})\n" +
-                            "CREATE (m)-[:WROTE {quantity: 1}]->(n)\n" +
-                            "CREATE (m)-[:WROTE {quantity: 3}]->(o)\n" +
-                            "CREATE (m)-[:WROTE {quantity: 2}]->(p)\n" +
-                            "CREATE (m)-[:WROTE {quantity: 3}]->(q)\n" +
-                            "CREATE (m)-[:WROTE {quantity: 2}]->(r)");
-                stmt.executeQuery("match (m:Person {name: \"Per 14\"})\n" +
-                        "match (n:Person {name: \"Per 4\"})\n" +
-                        "match (o:Person {name: \"Per 10\"})\n" +
-                        "match (p:Person {name: \"Per 11\"})\n" +
-                        "match (q:Person {name: \"Per 12\"})\n" +
-                        "CREATE (m)-[:WROTE {quantity: 7}]->(n)\n" +
-                        "CREATE (m)-[:WROTE {quantity: 6}]->(o)\n" +
-                        "CREATE (m)-[:WROTE {quantity: 8}]->(p)\n" +
-                        "CREATE (m)-[:WROTE {quantity: 3}]->(q)");
-                */
+               
                 for (int m = 0; m<14 ; m++){
                 grafito.addNode(adjmatrix[m][0]);
                 String query = String.format("\"%s\"", adjmatrix[m][0]);
@@ -282,8 +132,7 @@ public class GraphDB {
               //    bcb.setWeight(nodo1, nodo2, correos[i][j]);
                 }
             }
-        }
-                
+        }  
                 /*
                         ResultSet rs = stmt.executeQuery("MATCH (n:Person)-[rel:WROTE]->(m:Person) \n WHERE rel.quantity > 5 \n RETURN n.name");
                         while (rs.next()) {
@@ -299,21 +148,21 @@ public class GraphDB {
             }
     
     /**
-     *
+     * Método para mostrar el grafo original
      */
     public void mostrarGrafo (){
         grafito.display();
     }
 
     /**
-     *
+     * Método para mostrar el grafo de las personas que tienen mas de 6 correos
      */
     public void mostrarGrafo6(){
         grafo6.display();
     }
 
     /**
-     *
+     * Método para mostrar el page rank de todas las personas del grafo
      */
     public void pagerank() {
      losrankings.clear();
@@ -341,7 +190,7 @@ public class GraphDB {
 
     /**
      *
-     * @return
+     * @return Devuelve los rankings de las personas segun su importancia
      */
     public String getRankings ()
     {
@@ -356,7 +205,7 @@ public class GraphDB {
     
     /**
      *
-     * @return
+     * @return Devuelve las personas que mas se comunicaron (Es decir, mas correos enviaron)
      */
     public String masComunicados (){
         String s = "";
@@ -372,7 +221,7 @@ public class GraphDB {
     
     /**
      *
-     * @return
+     * @return Devuelve las personas que menos se comunicaron (Es decir, los que menos correos enviaron)
      */
     public String menosComunicados (){
         String s = "";
@@ -390,12 +239,12 @@ public class GraphDB {
      *
      * @param origen
      * @param destino
-     * @return
+     * @return Devuelve la cantidad de correos que fueron enviados entre una persona origen y una destino
      */
     public String correos(String origen, String destino){
         String res = "";
         try {
-                    Connection con = DriverManager.getConnection("jdbc:neo4j:bolt://localhost/?user=neo4j,password=123,debug=true,noSsl,flatten=[-1,100,1000]");
+                    Connection con = DriverManager.getConnection("jdbc:neo4j:bolt://localhost/?user=neo4j,password=neo4jhdt10,debug=true,noSsl,flatten=[-1,100,1000]");
                     try (Statement stmt = con.createStatement()) {
         
         String queryo = String.format("\"%s\"",origen);

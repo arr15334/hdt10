@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
+/* Universidad del Valle de Guatemala
+ * Algoritmos y Estructuras de Datos
+ * Hoja de Trabajo #10
  *
- * @author Rodrigo Arriaza
+ * @author Rodrigo Arriaza, Alejandro Chaclán, Sebastián Galindo
  */
 public class MainGUI extends javax.swing.JFrame {
     GraphDB graphdb = new GraphDB();
@@ -31,15 +27,15 @@ public class MainGUI extends javax.swing.JFrame {
         verGrafo = new javax.swing.JButton();
         grafo6 = new javax.swing.JButton();
         verPagerank = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        verMasComunicados = new javax.swing.JButton();
+        verMenosComunicados = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
         pOrigen = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
+        label_origen = new javax.swing.JLabel();
         pDestino = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        label_destino = new javax.swing.JLabel();
+        verCorreos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,17 +62,17 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Ver mas comunicados");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        verMasComunicados.setText("Ver mas comunicados");
+        verMasComunicados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                verMasComunicadosActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Ver menos comunicados");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        verMenosComunicados.setText("Ver menos comunicados");
+        verMenosComunicados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                verMenosComunicadosActionPerformed(evt);
             }
         });
 
@@ -86,16 +82,16 @@ public class MainGUI extends javax.swing.JFrame {
 
         pOrigen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Per 1", "Per 2", "Per 3", "Per 4", "Per 5", "Per 6", "Per 7", "Per 8", "Per 9", "Per 10", "Per 11", "Per 12", "Per 13", "Per 14" }));
 
-        jLabel1.setText("Origen");
+        label_origen.setText("Origen");
 
         pDestino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Per 1", "Per 2", "Per 3", "Per 4", "Per 5", "Per 6", "Per 7", "Per 8", "Per 9", "Per 10", "Per 11", "Per 12", "Per 13", "Per 14", "Todos" }));
 
-        jLabel2.setText("Destino");
+        label_destino.setText("Destino");
 
-        jButton3.setText("Ver correos");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        verCorreos.setText("Ver correos");
+        verCorreos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                verCorreosActionPerformed(evt);
             }
         });
 
@@ -119,8 +115,8 @@ public class MainGUI extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                    .addComponent(verMenosComunicados)
+                                    .addComponent(verMasComunicados, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addGap(21, 21, 21)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -128,13 +124,13 @@ public class MainGUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
+                                    .addComponent(label_origen)
+                                    .addComponent(label_destino))
                                 .addGap(34, 34, 34)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(pDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(pOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jButton3))))
+                            .addComponent(verCorreos))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,20 +145,20 @@ public class MainGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(verPagerank)
                         .addGap(26, 26, 26)
-                        .addComponent(jButton2)
+                        .addComponent(verMasComunicados)
                         .addGap(35, 35, 35)
-                        .addComponent(jButton1))
+                        .addComponent(verMenosComunicados))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(label_origen))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(label_destino))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(verCorreos)
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
@@ -183,36 +179,56 @@ public class MainGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    * Método para controlar la acción del boton ver grafo, al presionarlo se muestra el grafo
+    */
     private void verGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGrafoActionPerformed
         graphdb.mostrarGrafo();
 // TODO add your handling code here:
     }//GEN-LAST:event_verGrafoActionPerformed
 
+    /*
+    * Método para controlar la acción del boton ver grafo de las personas que
+    * se han enviado mas de 6 correos
+    */
     private void grafo6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grafo6ActionPerformed
         // TODO add your handling code here:
         graphdb.mostrarGrafo6();
     }//GEN-LAST:event_grafo6ActionPerformed
-
+    /*
+    * Método para controlar la acción del boton ver page rank, al presionarlo
+    * se muestra el page rank de cada persona
+    */
     private void verPagerankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verPagerankActionPerformed
         // TODO add your handling code here:
         textArea.setText("");
         graphdb.pagerank();
         textArea.setText(graphdb.getRankings());
     }//GEN-LAST:event_verPagerankActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    /*
+    * Método para controlar la acción del boton ver mas comunicados, 
+    * al presionarlo se muestran las personas mas comunicadas
+    */
+    private void verMasComunicadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verMasComunicadosActionPerformed
         // TODO add your handling code here:
         textArea.setText("");
         textArea.setText(graphdb.masComunicados());
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_verMasComunicadosActionPerformed
+    /*
+    * Método para controlar la acción del boton ver menos comunicados, 
+    * al presionarlo se muestran las personas menos comunicadas
+    */
+    private void verMenosComunicadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verMenosComunicadosActionPerformed
         // TODO add your handling code here:
         textArea.setText("");
         textArea.setText(graphdb.menosComunicados());
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_verMenosComunicadosActionPerformed
+    /*
+    * Método para controlar la acción del boton Ver correps, 
+    * al presionarlo se muestran la cantidad de correos enviados entre
+    * dos personas
+    */
+    private void verCorreosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verCorreosActionPerformed
         // TODO add your handling code here:
         textArea.setText("");
         
@@ -231,7 +247,7 @@ public class MainGUI extends javax.swing.JFrame {
             }
             textArea.setText(res);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_verCorreosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,17 +286,17 @@ public class MainGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton grafo6;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel label_destino;
+    private javax.swing.JLabel label_origen;
     private javax.swing.JComboBox pDestino;
     private javax.swing.JComboBox pOrigen;
     private javax.swing.JTextArea textArea;
+    private javax.swing.JButton verCorreos;
     private javax.swing.JButton verGrafo;
+    private javax.swing.JButton verMasComunicados;
+    private javax.swing.JButton verMenosComunicados;
     private javax.swing.JButton verPagerank;
     // End of variables declaration//GEN-END:variables
 }
